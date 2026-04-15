@@ -17,20 +17,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class BaseModel {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
+    @CreatedDate
     private LocalDateTime createdAt;
 
-
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     private boolean isDeleted;
-
+    //This (createdBy) was optional in the class
+    @CreatedBy
     private String createdBy;
 }
-
