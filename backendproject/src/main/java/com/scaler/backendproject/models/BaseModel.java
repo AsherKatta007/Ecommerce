@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @MappedSuperclass
 public class BaseModel implements Serializable {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @CreatedDate
