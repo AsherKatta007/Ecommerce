@@ -11,4 +11,8 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 public class Product {
+    private String title;
+    private String description;
+    private Double price;
+    private String imageUrl;
 }
