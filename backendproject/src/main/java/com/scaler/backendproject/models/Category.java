@@ -8,5 +8,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
-public class Category {
+@Entity
+public class Category extends BaseModel {
+    private String title;
 }
