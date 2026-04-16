@@ -1,5 +1,4 @@
 package com.scaler.backendproject.models;
-package com.scaler.backendproject.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -16,9 +15,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Product extend BaseModel{
+public class Product extends BaseModel {
     private String title;
     private String description;
     private Double price;
     private String imageUrl;
+
 }
