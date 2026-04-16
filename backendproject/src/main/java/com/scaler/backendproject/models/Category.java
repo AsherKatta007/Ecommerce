@@ -8,7 +8,12 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Category extends BaseModel {
     private String title;
 }
