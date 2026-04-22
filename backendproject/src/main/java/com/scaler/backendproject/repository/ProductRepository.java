@@ -30,5 +30,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //SELECT * FROM Product WHERE description = xyz AND title = abc (passed arguments)
     Product findByTitleAndDescription(String title, String description);
 
+    //Implement HQL Query
+    @Query("SELECT p FROM Product AS p WHERE p.category.id =:categoryId")
+    List<Product> getProductByCategoryId(@Param("categoryId") Long categoryId);
+
+    //Implementing Native Query (SQL)
+    @Query(value = "SELECT * FROM Product AS p WHERE p.category_id =:categoryId", nativeQuery = true)
+    List<Product> getProductByCategoryIdByNativeQuery(@Param("categoryId") Long categoryId);
+
+    //Implement Product Projection
+    @Query("SELECT p.title AS title, p.id AS id FROM Product AS p WHERE p.category.id =:categoryId")
+    List<ProductProjection> getProductByCategoryIdUsingProjections(@Param("categoryId") Long categoryId);
+
 
 }
