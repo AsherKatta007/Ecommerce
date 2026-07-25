@@ -1,4 +1,4 @@
 package com.scaler.backendproject.exceptions;
 
-public class ProductNotFoundException {
+public class ProductNotFoundException extends Exception {
 }
