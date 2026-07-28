@@ -14,4 +14,12 @@ import java.util.Optional;
 
 @Service("selfProductService")
 public class SelfProductService {
+
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+
+    public SelfProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
 }
