@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 //that this is one of our important class
 //so create an object of this
 @Service("fakeStoreProductService")
-public class FakeStoreProductService {
+public class FakeStoreProductService implements ProductService {
 
     //Inside this, fake store is going to be third party service
 
@@ -111,4 +111,93 @@ public class FakeStoreProductService {
 
         return response.getProduct();
     }
+
+    @Override
+    public Product deleteProduct(Long id) throws ProductNotFoundException {
+        System.out.println("Inside the delete product in FakeStoreProductService API");
+        //No return type, as the restTemplate returns void for delete function
+        //So, we first store the product in a temp variable
+        //To show which product we are deleting
+        Product deletedProduct = getSingleProduct(id);
+        deletedProduct.setDeleted(true);
+        restTemplate.delete("https://fakestoreapi.com/products/" + id);
+        return deletedProduct;
+    }
+
+
+    public Product updateProduct(Long id, String title, String description,
+                                 Double price, Category category, String imageUrl) throws ProductNotFoundException {
+        System.out.println("Inside the update product in FakeStoreProductService API");
+        Product existingProduct = getSingleProduct(id);
+
+        ResponseEntity<Product> responseEntity = null;
+        try {
+            System.out.println("Updating the Product");
+            if (title != null) {
+                existingProduct.setTitle(title);
+            }
+            if (description != null) {
+                existingProduct.setDescription(description);
+            }
+            if (price != null) {
+                existingProduct.setPrice(price);
+            }
+            if (category != null) {
+                existingProduct.setCategory(category);
+            }
+            if (imageUrl != null) {
+                existingProduct.setImageUrl(imageUrl);
+            }
+
+            // Create HttpEntity with the updated product
+            HttpEntity<Product> requestEntity = new HttpEntity<>(existingProduct);
+
+            // Use exchange() method instead of patchForObject
+            responseEntity = restTemplate.exchange(
+                    "https://fakestoreapi.com/products/" + id,
+                    HttpMethod.PUT,
+                    requestEntity,
+                    Product.class
+            );
+        } catch (RuntimeException re) {
+            throw new RuntimeException("Product Not Found" + re);
+        }
+
+        return responseEntity.getBody(); //responseEntity != null ? responseEntity.getBody() : null;
+    }
+
+//    public Product updateProduct(Long id, String title, String description,
+//                                 Double price, Category category, String imageUrl) {
+//        System.out.println("Inside the update product in FakeStoreProductService API");
+//        Product existingProduct = getSingleProduct(id);
+//
+//        if (existingProduct != null) {
+//            FakeStoreProductDTO fakeStoreProductDTO = new FakeStoreProductDTO();
+//            System.out.println("Updating the Product");
+//            fakeStoreProductDTO.setId(id);
+//            if (title != null) {
+//                existingProduct.setTitle(title);
+//            }
+//            if (description != null) {
+//                existingProduct.setDescription(description);
+//            }
+//            if (price != null) {
+//                existingProduct.setPrice(price);
+//            }
+//            if (category != null) {
+//                existingProduct.setCategory(category);
+//            }
+//            if (imageUrl != null) {
+//                existingProduct.setImageUrl(imageUrl);
+//            }
+//            Product response =
+//                    restTemplate.patchForObject("https://fakestoreapi.com/products/" + id,
+//                            existingProduct, Product.class);
+//            return response;
+//        } else {
+//            throw new RuntimeException("Product Not Found");
+//        }
+//       return null;
+//    }
+
 }
