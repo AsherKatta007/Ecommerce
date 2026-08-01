@@ -16,7 +16,7 @@ public class StripePaymentGatewayImplementation implements PaymentService{
         // 1. Create PriceCreateParam Object
         //
 
-        Stripe.apiKey = "YOUR_STRIPE_SECRET_KEY";;
+        ;
 
         PriceCreateParams params =
                 PriceCreateParams.builder()
