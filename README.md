@@ -1,157 +1,268 @@
-#E-Commerce Website
+# 🛒 E-Commerce Backend API
 
-This is a Java Spring Boot backend project for an E-Commerce platform, designed for high performance and scalability. The project integrates multiple cloud services, follows best coding practices, and ensures efficient API performance.
+A scalable and high-performance **Java Spring Boot** backend application for an E-Commerce platform. The project follows industry-standard architecture, SOLID principles, and integrates cloud services, caching, payment processing, and third-party APIs to build a robust RESTful backend.
 
 ---
 
-# 🚀 Features & Tech Stack
+# 🚀 Features
 
-## 📌 Cloud Services & Infrastructure
+- RESTful APIs for Product, Category, and Payment Management
+- Product Pagination and Sorting
+- Redis Caching for improved API performance
+- Stripe Payment Gateway Integration
+- Third-Party Product API Integration
+- Global Exception Handling
+- Layered Architecture
+- Constructor-based Dependency Injection
+- Database Migration using Flyway
 
-- **AWS RDS:** Used for database management.
-- **AWS EC2:** Deployed for scaling and handling traffic efficiently.
-- **Redis Caching:** Optimized API calls by 85–95%, reducing response time significantly.
+---
 
-## 💳 Payment Gateway Integration
+# ☁️ Cloud & Infrastructure
 
-- Stripe integrated for seamless payments.
-- Implemented callbacks and webhooks to handle payment confirmations.
+- **AWS RDS** – Managed MySQL Database
+- **AWS EC2** – Application Deployment
+- **Redis** – In-memory caching
+- **Stripe** – Payment Gateway
 
-## 🔗 Third-Party API Integration
+---
 
-- Integrated external APIs for fetching product data.
+# 🛠️ Tech Stack
 
-## 🛠 Tech Stack
-
-- Java
+- Java 17
 - Spring Boot
-- Hibernate
+- Spring MVC
 - Spring Data JPA
-- MySQL (AWS RDS)
+- Hibernate
+- MySQL
 - Redis
-- AWS EC2
-- Stripe
+- Flyway
+- Stripe API
 - Maven
 - Lombok
 
 ---
 
-# 🎯 Design & Best Practices
+# 🏗️ Architecture
 
-## ✅ SOLID Principles
+The project follows a layered architecture.
 
-The project follows SOLID principles to ensure maintainability and scalability.
+```
+Controller
+      ↓
+Service
+      ↓
+Repository
+      ↓
+Database
+```
 
-- **S — Single Responsibility Principle:** Each class has a single well-defined responsibility.
-- **O — Open/Closed Principle:** Implemented abstraction using service interfaces.
-- **L — Liskov Substitution Principle:** Payment implementations follow interface contracts.
-- **I — Interface Segregation Principle:** Separate interfaces for Product, Category, and Payment services.
-- **D — Dependency Inversion Principle:** Constructor-based dependency injection throughout the application.
+Project Layers:
+
+- Controller Layer
+- Service Layer
+- Repository Layer
+- Model Layer
+- DTO Layer
+- Configuration Layer
 
 ---
 
-## 🛠 Exception Handling
+# 🎯 Design Principles
 
-Implemented custom exceptions:
+The application follows **SOLID Principles**.
+
+### Single Responsibility Principle (SRP)
+
+Each class has a single responsibility.
+
+### Open Closed Principle (OCP)
+
+Service implementations are extendable using interfaces.
+
+### Liskov Substitution Principle (LSP)
+
+Service implementations can be substituted without affecting application behavior.
+
+### Interface Segregation Principle (ISP)
+
+Separate interfaces are maintained for Product, Category, and Payment services.
+
+### Dependency Inversion Principle (DIP)
+
+Constructor-based dependency injection is used throughout the project.
+
+---
+
+# 🏛️ Design Patterns
+
+- Strategy Pattern
+- Repository Pattern
+- DTO Pattern
+- Dependency Injection
+- Factory Pattern (Spring Bean Management)
+
+---
+
+# ⚠️ Exception Handling
+
+Custom exceptions implemented:
 
 - ProductNotFoundException
 - CategoryNotFoundException
 
-Centralized exception handling using **ControllerAdvice**.
+Global exception handling is implemented using:
+
+- `@ControllerAdvice`
 
 ---
 
 # 📂 Project Structure
 
 ```text
-src/main/java/com/scaler/backendproject
-
-├── advice
-│   └── ControllerAdvice.java
-
-├── configs
-│   ├── RedisTemplateConfig.java
-│   └── AuditConfig.java
-
-├── controller
-│   ├── ProductController.java
-│   ├── CategoryController.java
-│   └── PaymentController.java
-
-├── dto
-│   ├── PaymentRequestDTO.java
-│   └── ErrorDTO.java
-
-├── exceptions
-│   ├── ProductNotFoundException.java
-│   └── CategoryNotFoundException.java
-
-├── models
-│   ├── BaseModel.java
-│   ├── Product.java
-│   └── Category.java
-
-├── repository
-│   ├── ProductRepository.java
-│   └── CategoryRepository.java
-
-├── service
-│   ├── ProductService.java
-│   ├── CategoryService.java
-│   ├── PaymentService.java
-│   └── StripePaymentGatewayImplementation.java
+.
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── scaler
+│   │   │           └── backendproject
+│   │   │               ├── advice
+│   │   │               ├── configs
+│   │   │               ├── controller
+│   │   │               ├── dto
+│   │   │               ├── exceptions
+│   │   │               ├── models
+│   │   │               ├── repository
+│   │   │               ├── service
+│   │   │               └── BackendProjectApplication.java
+│   │   │
+│   │   └── resources
+│   │       ├── application.properties
+│   │       └── db
+│   │           └── migration
+│   │               └── V1__.sql
+│   │
+│   └── test
+│       └── java
+│
+├── META-INF
+├── .mvn
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+├── .gitignore
+├── .gitattributes
+└── README.md
 ```
 
 ---
 
-# 🚀 How to Run Locally
+# 🚀 Getting Started
 
-### Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/AsherKatta007/Ecommerce.git
 ```
 
-### Navigate to the Project
+## Navigate to the Project
 
 ```bash
-cd Ecommerce/backendproject
+cd Ecommerce
 ```
 
-### Configure the Database
+## Configure Database
 
-Configure MySQL (or AWS RDS) credentials in `application.properties`.
+Update the MySQL (or AWS RDS) credentials in:
 
-### Configure Redis
+```
+src/main/resources/application.properties
+```
 
-Ensure Redis is installed and running.
+## Configure Redis
 
-### Run the Application
+Ensure Redis Server is installed and running.
+
+## Run the Application
+
+Using Maven:
 
 ```bash
+mvn clean install
 mvn spring-boot:run
 ```
 
-### Access the Application
+Or using Maven Wrapper:
 
+```bash
+./mvnw spring-boot:run
 ```
-http://localhost:8080
+
+Windows:
+
+```bash
+mvnw.cmd spring-boot:run
 ```
 
 ---
 
-# 📌 API Endpoints
+# 🌐 API Endpoints
+
+## Product APIs
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/product` | Create a new product |
-| GET | `/product/{id}` | Get a product by ID |
-| GET | `/products?pageNumber=1&pageSize=10&fieldName=price` | Get paginated products |
-| POST | `/payments` | Create a payment link |
-| POST | `/webhook` | Handle payment webhooks |
+|---------|----------|-------------|
+| POST | `/product` | Create Product |
+| GET | `/product/{id}` | Get Product by ID |
+| GET | `/products` | Get Products with Pagination |
+
+## Category APIs
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/category` | Create Category |
+| GET | `/categories` | Get All Categories |
+| GET | `/productsInCategory/{category}` | Get Products by Category |
+
+## Payment APIs
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/payments` | Generate Stripe Payment Link |
+| POST | `/webhook` | Stripe Webhook Callback |
+
+---
+
+# ⚡ Performance Optimizations
+
+- Redis Caching
+- Pagination
+- Database Indexing
+- Spring Dependency Injection
+- JPA Repository Optimizations
+
+---
+
+# 📌 Future Enhancements
+
+- JWT Authentication
+- Role-Based Authorization
+- Swagger / OpenAPI Documentation
+- Docker Support
+- CI/CD Pipeline
+- Kubernetes Deployment
 
 ---
 
 # 👨‍💻 Repository
 
-**GitHub:** https://github.com/AsherKatta007/Ecommerce
+GitHub Repository:
+
+**https://github.com/AsherKatta007/Ecommerce**
+
+---
+
+## 📜 License
+
+This project is developed for learning and educational purposes.
